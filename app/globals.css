@@ -16,6 +16,13 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --sidebar-bg: #121212;
+    --card-bg: #1a1a1a;
+    --card-active-bg: #141c18;
+    --card-border: #242424;
+    --text-primary: #ffffff;
+    --text-secondary: #71717a;
+    --brand-color: #10b981;
   }
 }
 
@@ -23,4 +30,43 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+/* Custom Scrollbar Global Styles */
+@layer base {
+  :root {
+    /* থিমের কালার অনুযায়ী এই ভ্যারিয়েবলটি আপনার থিম কন্ট্রোলারে চেইঞ্জ করবেন */
+    --scrollbar-color: #3f3f46; /* Default gray-700 */
+    --scrollbar-hover: #10b981; /* Default emerald-500 */
+  }
+
+  /* ফায়ারফক্সের জন্য */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-color) transparent;
+  }
+
+  /* ক্রোম, সাফারি এবং এজ-এর জন্য */
+  ::-webkit-scrollbar {
+    width: 5px; /* আপনার রিকুয়্যারমেন্ট অনুযায়ী ৫ পিক্সেল */
+    height: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent; /* ব্যাকগ্রাউন্ড থাকবে না */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-color);
+    border-radius: 20px; /* একদম রাউন্ডেড শেপ */
+    border: none;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--scrollbar-hover); /* হোভার করলে থিম কালার হবে */
+  }
+}
+
+/* শুধুমাত্র সাইডবারের জন্য যদি আলাদা করতে চান */
+.custom-sidebar-scrollbar::-webkit-scrollbar {
+  width: 4px;
 }
