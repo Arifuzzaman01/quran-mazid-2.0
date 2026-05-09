@@ -32,7 +32,7 @@ const SurahSearchbar = ({ onSearch }: SearchProps) => {
         value={query}
         onChange={handleChange}
         placeholder="Search Surah..."
-        className="w-full bg-[#1a1a1a] border border-[#2a2a2a] rounded-2xl pl-12 pr-10 py-3 text-sm text-gray-300 focus:outline-none focus:border-emerald-900/50 focus:ring-1 focus:ring-emerald-500/10 transition-all placeholder:text-gray-700"
+        className="w-full bg-[var(--sidebar-bg)] border border-[#2a2a2a] rounded-2xl pl-12 pr-10 py-3 text-sm text-gray-300 focus:outline-none focus:border-emerald-900/50 focus:ring-1 focus:ring-emerald-500/10 transition-all placeholder:text-gray-700"
       />
 
       {query && (

@@ -1,10 +1,10 @@
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import MainLayout from "@/components/layout/MainLayout";
-import SurahSidebar from "@/components/SurahSidebar";
 import { SettingsProvider } from "@/context/SettingsContext";
-import Header from "@/components/Header";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,25 +29,19 @@ export default async function RootLayout({
   const surahs = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/surahs`).then(
     (res) => res.json(),
   );
-  // console.log(process.env.NEXT_PUBLIC_API_URL, "API URL");
+ 
   return (
+    
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="fixed top-0 w-full" >
+      <body className="fixed top-0 w-full bg-[var(---bg-main)] antialiased">
         <SettingsProvider>
-         <header>
-           <Header />
-         </header>
-          <div className="flex h-screen  text-white overflow-hidden">
-            {/* 1. Left Icon Sidebar (Fixed) */}
-            <aside>
-              <SurahSidebar surahs={surahs} />
-            </aside>
-            {/* 2. Main Area (Scrollable) */}
-            <main className="flex-1 overflow-y-auto relative">{children}</main>
-          </div>
+         
+          <MainLayout surahs={surahs}>
+            {children}
+          </MainLayout>
         </SettingsProvider>
       </body>
     </html>

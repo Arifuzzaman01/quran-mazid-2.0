@@ -57,7 +57,7 @@ const Search = ({ onLocalFilter }: SearchProps) => {
           value={query}
           onChange={handleInputChange}
           placeholder="Search Surah or Ayah (Translation)..."
-          className="w-full bg-[#1a1a1a] border border-[#2a2a2a] rounded-2xl pl-12 pr-10 py-3 text-sm text-gray-300 focus:outline-none focus:border-emerald-900/50 focus:ring-1 focus:ring-emerald-500/10 transition-all placeholder:text-gray-700"
+          className="w-full bg-[var(--sidebar-bg)] border border-[#2a2a2a] rounded-2xl pl-12 pr-10 py-3 text-sm text-gray-300 focus:outline-none focus:border-emerald-900/50 focus:ring-1 focus:ring-emerald-500/10 transition-all placeholder:text-gray-700"
         />
 
         {query && (
@@ -72,8 +72,8 @@ const Search = ({ onLocalFilter }: SearchProps) => {
 
       {/* --- Global Ayah Search Results Dropdown --- */}
       {results.length > 0 && (
-        <div className="absolute top-full mt-2 w-full bg-[#121212] border border-[#2a2a2a] rounded-xl shadow-2xl z-[100] max-h-[400px] overflow-y-auto custom-sidebar-scrollbar">
-          <p className="p-3 text-[10px] uppercase font-bold text-gray-600 border-b border-[#1a1a1a]">
+        <div className="absolute top-full mt-2 w-full bg-[var(--sidebar-bg)] border border-[#2a2a2a] rounded-xl shadow-2xl z-[100] max-h-[400px] overflow-y-auto custom-sidebar-scrollbar">
+          <p className="p-3 text-[10px] uppercase font-bold text-primary border-b border-[#1a1a1a]">
             Ayah Results ({results.length})
           </p>
           {results.map((item: any, index) => (
@@ -84,7 +84,7 @@ const Search = ({ onLocalFilter }: SearchProps) => {
                 setResults([]);
                 setQuery("");
               }}
-              className="w-full p-4 text-left hover:bg-[#1a1a1a] border-b border-[#1a1a1a] last:border-0 transition-colors group"
+              className="w-full p-4 text-left hover:bg-[var(--sidebar-bg)] border-b border-[#1a1a1a] last:border-0 transition-colors group"
             >
               <div className="flex justify-between items-center mb-1">
                 <span className="text-xs font-bold text-emerald-500">{item.surahName} {item.surahId}:{item.verseId}</span>

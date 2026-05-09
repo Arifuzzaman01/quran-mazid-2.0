@@ -26,10 +26,33 @@
   }
 }
 
+/* Default Dark Theme */
+:root.dark {
+  --bg-main: #0a0a0a;
+  --sidebar-bg: #121212;
+  --card-bg: #1a1a1a;
+  --text-primary: #f3f4f6;
+}
+
+/* Light Theme */
+:root.light {
+  --bg-main: #ffffff;
+  --sidebar-bg: #f8f9fa;
+  --card-bg: #f1f3f5;
+  --text-primary: #1a1a1a;
+}
+
+/* Sepia (Eye Comfort) Theme */
+:root.sepia {
+  --bg-main: #f4ecd8;
+  --sidebar-bg: #ece2c6;
+  --card-bg: #e4d8b4;
+  --text-primary: #5b4636;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
 }
 /* Custom Scrollbar Global Styles */
 @layer base {

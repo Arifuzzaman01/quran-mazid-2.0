@@ -11,7 +11,7 @@ interface Surah {
   translation: string;
 }
 
-export default function SurahSidebar({ surahs }: { surahs: Surah[] }) {
+export default function SurahSidebar({ surahs, onClose, isOpen }: { surahs: Surah[]; onClose: () => void; isOpen: boolean }) {
   const { id: activeId } = useParams();
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredSurahs, setFilteredSurahs] = useState<Surah[]>(surahs);
@@ -33,27 +33,41 @@ export default function SurahSidebar({ surahs }: { surahs: Surah[] }) {
     }
   }, [searchQuery, surahs]);
 
-  return (
-    <div className="w-[310px] h-screen bg-[var(--sidebar-bg)] flex flex-col border-r border-[#1f1f1f] hidden lg:flex">
+  return ( 
+    <> {isOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-10 lg:hidden" 
+          onClick={onClose}
+        />
+      )}
+    <div className={`fixed lg:static top-0 left-0 h-screen bg-[var(--sidebar-bg)] border-r border-[#1f1f1f] z-50
+        transition-transform duration-300 ease-in-out flex flex-col
+        w-[310px] 
+        ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"} 
+        lg:flex
+      `}>
+        <div className="lg:hidden absolute right-4 top-5">
+           <button onClick={onClose} className="p-2 text-gray-400"><X size={20}/></button>
+        </div>
       {/* --- Header Section --- */}
       <div className="p-5 space-y-6">
         {/* --- Tab Switcher --- */}
-        <div className="flex bg-[#0a0a0a] px-2 py-1.5 rounded-full">
+        <div className="flex bg-[var(--card-bg)] px-2 py-1.5 rounded-full">
           <button
             onClick={() => setActive("surah")}
-            className={`flex-1 py-2 text-xs font-bold rounded-full ${active === "surah" ? "bg-[var(--card-bg)] text-white" : "text-gray-500 hover:text-gray-300 "} transition-all duration-300 ease-in-out`}
+            className={`flex-1 py-2 text-xs font-bold rounded-full ${active === "surah" ? "bg-[var(--sidebar-bg)] text-primary" : "text-primary/50  "} transition-all duration-300 ease-in-out`}
           >
             Surah
           </button>
           <button
             onClick={() => setActive("juz")}
-            className={`flex-1 py-2 text-xs font-bold rounded-full ${active === "juz" ? "bg-[var(--card-bg)] text-white" : "text-gray-500 hover:text-gray-300"} transition-all duration-300 ease-in-out`}
+            className={`flex-1 py-2 text-xs font-bold rounded-full ${active === "juz" ? "bg-[var(--sidebar-bg)] text-primary" : "text-primary/50"} transition-all duration-300 ease-in-out`}
           >
             Juz
           </button>
           <button
             onClick={() => setActive("page")}
-            className={`flex-1 py-2 text-xs font-bold rounded-full ${active === "page" ? "bg-[var(--card-bg)] text-white" : "text-gray-500 hover:text-gray-300"} transition-all duration-300 ease-in-out`}
+            className={`flex-1 py-2 text-xs font-bold rounded-full ${active === "page" ? "bg-[var(--sidebar-bg)] text-primary" : "text-primary/50"} transition-all duration-300 ease-in-out`}
           >
             Page
           </button>
@@ -63,7 +77,7 @@ export default function SurahSidebar({ surahs }: { surahs: Surah[] }) {
         <div className="relative group">
           <Search
             className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors ${
-              searchQuery ? "text-emerald-500" : "text-gray-600"
+              searchQuery ? "text-primary" : "text-primary/70"
             }`}
             size={18}
           />
@@ -72,12 +86,12 @@ export default function SurahSidebar({ surahs }: { surahs: Surah[] }) {
             placeholder="Search Surah"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-[#1a1a1a] border border-[#2a2a2a] rounded-2xl pl-12 pr-10 py-3 text-sm text-gray-300 focus:outline-none focus:ring-1 focus:ring-emerald-500/30 transition-all placeholder:text-gray-700"
+            className="w-full bg-[var(--sidebar-bg)] border border-primary rounded-2xl pl-12 pr-10 py-3 text-sm text-primary focus:outline-none focus:ring-1 focus:ring-emerald-500/30 transition-all placeholder:text-gray-700"
           />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery("")}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white"
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-primary hover:text-white"
             >
               <X size={16} />
             </button>
@@ -98,8 +112,8 @@ export default function SurahSidebar({ surahs }: { surahs: Surah[] }) {
                   href={`/surah/${surah.id}`}
                   className={`flex items-center gap-4 p-4 rounded-2xl border transition-all duration-200 group ${
                     isActive
-                      ? "bg-[var(--card-active-bg)] border-emerald-900/40"
-                      : "bg-[var(--card-bg)] border-transparent hover:border-[#333]"
+                      ? "bg-[var(--sidebar-bg)] border-emerald-900/40"
+                      : "bg-[var(--card-bg)] border-transparent hover:border-primary/20"
                   }`}
                 >
                   {/* Diamond Index Shape */}
@@ -108,11 +122,11 @@ export default function SurahSidebar({ surahs }: { surahs: Surah[] }) {
                       className={`absolute rotate-45 w-8 h-8 rounded-lg transition-colors duration-300 ${
                         isActive
                           ? "bg-emerald-600 shadow-[0_0_15px_rgba(16,185,129,0.3)]"
-                          : "bg-[#242424] group-hover:bg-[#2a2a2a]"
+                          : "bg-[#3a3535] group-hover:bg-[#2a2a2a]"
                       }`}
                     />
                     <span
-                      className={`relative text-xs font-bold ${isActive ? "text-white" : "text-gray-400"}`}
+                      className={`relative text-xs font-bold ${isActive ? "text-primary/50" : "text-white/70"}`}
                     >
                       {surah.id}
                     </span>
@@ -121,11 +135,11 @@ export default function SurahSidebar({ surahs }: { surahs: Surah[] }) {
                   {/* Surah Name Info */}
                   <div className="flex-1">
                     <p
-                      className={`text-[15px] font-bold ${isActive ? "text-gray-100" : "text-gray-300"}`}
+                      className={`text-[15px] font-bold ${isActive ? "text-primary" : "text-primary/10"}`}
                     >
                       {surah.transliteration}
                     </p>
-                    <p className="text-[12px] text-gray-500 font-medium">
+                    <p className="text-[12px] text-primary/50 font-medium">
                       {surah.translation}
                     </p>
                   </div>
@@ -140,5 +154,6 @@ export default function SurahSidebar({ surahs }: { surahs: Surah[] }) {
         </div>
       )}
     </div>
+    </>
   );
 }

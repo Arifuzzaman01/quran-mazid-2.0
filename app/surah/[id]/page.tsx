@@ -12,21 +12,21 @@ export default async function SurahDetail({
 }) {
   const { id } = await params;
   const surahId = id || "1"
-  console.log("Fetching data for Surah ID:", surahId);
-  // আপনার সার্ভার এপিআই থেকে ডাটা ফেচ করুন
+  // console.log("Fetching data for Surah ID:", surahId);
+ 
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/surah/${surahId}`);
   const surah = await res.json();
-  console.log("Fetched Surah Data:", process.env.NEXT_PUBLIC_API_URL, surah);
+  // console.log("Fetched Surah Data:", process.env.NEXT_PUBLIC_API_URL, surah);
 
   return (
-    <div className="flex h-full">
+    <div className="flex h-full  bg-[var(--bg-main)]">
       <div className="flex-1 overflow-y-auto">
         <div className="max-w-5xl mx-auto py-10 ">
-          <div className="text-center mb-10 pb-10 border-b border-gray-800">
+          <div className="text-center  pb-10 border-b border-gray-800">
             <h1 className="text-5xl font-arabic text-emerald-500 mb-4">
               {surah.name}
             </h1>
-            <p className="text-xl text-gray-400">
+            <p className="text-xl text-primary">
               {surah.transliteration} - {surah.translation}
             </p>
           </div>

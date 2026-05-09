@@ -12,7 +12,13 @@ interface Verse {
   translation: string;
 }
 
-export default function VerseCard({ verse, surahId }: { verse: Verse; surahId: string }) {
+export default function VerseCard({
+  verse,
+  surahId,
+}: {
+  verse: Verse;
+  surahId: string;
+}) {
   const { arabicFont, arabicSize, translationSize } = useSettings();
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -45,13 +51,13 @@ export default function VerseCard({ verse, surahId }: { verse: Verse; surahId: s
   return (
     <div
       id={`verse-${verse.id}`}
-      className="p-3 border-b border-[#212121]  transition-colors group"
+      className="bg-[var(--card-bg)] p-3 border-b border-primary/20 transition-colors group"
     >
       <div className="flex gap-6 items-start">
         {/* --- Left Icon Sidebar Section (Reference Clone) --- */}
         <div className="flex flex-col items-center gap-3 w-10 shrink-0 pt-1">
           {/* 1. Surah:Verse ID */}
-          <span className="text-sm font-medium text-emerald-500 mb-1">
+          <span className="text-sm font-medium text-primary mb-1">
             {surahId}:{verse.id}
           </span>
 
@@ -60,7 +66,7 @@ export default function VerseCard({ verse, surahId }: { verse: Verse; surahId: s
             onClick={toggleAudio}
             data-tooltip-id={`tooltip-${verse.id}`}
             data-tooltip-content={isPlaying ? "Pause Recitation" : "Play Audio"}
-            className="p-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-all"
+            className="p-2 text-primary hover:text-[var(--sidebar-bg)] hover:bg-gray-800 rounded-lg transition-all"
           >
             {isPlaying ? (
               <Pause size={19} className="text-emerald-500" />
@@ -73,7 +79,7 @@ export default function VerseCard({ verse, surahId }: { verse: Verse; surahId: s
           <button
             data-tooltip-id={`tooltip-${verse.id}`}
             data-tooltip-content="Read Tafsir"
-            className="p-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-all"
+            className="p-2 text-primary hover:text-[var(--sidebar-bg)] hover:bg-gray-800 rounded-lg transition-all"
           >
             <BookOpen size={19} />
           </button>
@@ -82,7 +88,7 @@ export default function VerseCard({ verse, surahId }: { verse: Verse; surahId: s
           <button
             data-tooltip-id={`tooltip-${verse.id}`}
             data-tooltip-content="Add to Bookmark"
-            className="p-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-all"
+            className="p-2 text-primary hover:text-[var(--sidebar-bg)] hover:bg-gray-800 rounded-lg transition-all"
           >
             <Bookmark size={19} />
           </button>
@@ -91,7 +97,7 @@ export default function VerseCard({ verse, surahId }: { verse: Verse; surahId: s
           <button
             data-tooltip-id={`tooltip-${verse.id}`}
             data-tooltip-content="Copy or Share"
-            className="p-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-all"
+            className="p-2 text-primary hover:text-[var(--sidebar-bg)] hover:bg-gray-800 rounded-lg transition-all"
           >
             <MoreHorizontal size={19} />
           </button>
@@ -103,12 +109,22 @@ export default function VerseCard({ verse, surahId }: { verse: Verse; surahId: s
           <div className="flex justify-end items-center">
             {/* আয়াত শেষে গোল নম্বরটি আনার জন্য verse.id ব্যবহার করা হয়েছে */}
             <p
-              className={`text-right leading-[2.6] text-white ${arabicFont}`}
-              style={{ fontSize: `${arabicSize}px`, direction: "rtl" }}
+              className={`text-right leading-[2.6] text-primary ${arabicFont}`}
+              style={{
+                fontSize: `${arabicSize}px`,
+                direction: "rtl",
+                fontFamily: `${arabicFont},`,
+              }}
             >
-              {verse.text} 
-              <span className="font-arabic_numerals text-gray-600 mx-2">
-                &#xFD3F;{verse.id.toString().split('').map(d=>String.fromCharCode(d.charCodeAt(0)+1728)).join('')}&#xFD3E;
+              {verse.text}
+              <span className="font-arabic_numerals text-primary mx-2">
+                &#xFD3F;
+                {verse.id
+                  .toString()
+                  .split("")
+                  .map((d) => String.fromCharCode(d.charCodeAt(0) + 1728))
+                  .join("")}
+                &#xFD3E;
               </span>
             </p>
           </div>
@@ -116,12 +132,12 @@ export default function VerseCard({ verse, surahId }: { verse: Verse; surahId: s
           {/* Translation Section (Clone pattern) */}
           <div className="space-y-3">
             {/* Translation Source Name */}
-            <p className="text-[10px] font-semibold text-gray-600 uppercase tracking-wider">
+            <p className="text-[10px] font-semibold text-primary uppercase tracking-wider">
               Saheeh International
             </p>
             {/* Translation Text (Style matched to image) */}
             <p
-              className="text-gray-200 font-light leading-relaxed max-w-3xl"
+              className="text-primary  font-light leading-relaxed max-w-3xl"
               style={{ fontSize: `${translationSize}px` }}
             >
               {verse.translation}
@@ -130,7 +146,6 @@ export default function VerseCard({ verse, surahId }: { verse: Verse; surahId: s
         </div>
       </div>
 
-      {/* --- Tooltip Instance (Verse ভিত্তিক ইউনিক আইডি) --- */}
       <Tooltip
         id={`tooltip-${verse.id}`}
         place="right"

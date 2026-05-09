@@ -22,7 +22,7 @@ export default function SettingsSidebar({ isOpen, onClose }: { isOpen: boolean; 
         />
       )}
 
-      <div className={`fixed right-0 top-0 h-full w-[320px] bg-[#121212] border-l border-[#1f1f1f] z-[200] transform transition-transform duration-300 ease-in-out shadow-2xl ${
+      <div className={`fixed right-0 top-0 h-full w-3/4 sm:w-[320px] bg-[#121212] border-l border-[#1f1f1f] z-[200] transform transition-transform duration-300 ease-in-out shadow-2xl ${
         isOpen ? "translate-x-0" : "translate-x-full"
       }`}>
         

@@ -5,6 +5,7 @@ type SettingsType = {
   arabicFont: string;
   arabicSize: number;
   translationSize: number;
+  theme: string; // নতুন থিম প্রপার্টি
   setSettings: (key: string, value: any) => void;
 };
 
@@ -15,17 +16,28 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
     arabicFont: "font-me-quran",
     arabicSize: 32,
     translationSize: 16,
+    theme: "dark", // ডিফল্ট থিম
   });
 
   useEffect(() => {
     const saved = localStorage.getItem("quranSettings");
-    if (saved) setAllSettings(JSON.parse(saved));
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      setAllSettings(parsed);
+    
+      document.documentElement.className = parsed.theme || "dark";
+    }
   }, []);
 
   const setSettings = (key: string, value: any) => {
     const newSettings = { ...settings, [key]: value };
     setAllSettings(newSettings);
     localStorage.setItem("quranSettings", JSON.stringify(newSettings));
+    
+   
+    if (key === "theme") {
+      document.documentElement.className = value;
+    }
   };
 
   return (
