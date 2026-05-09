@@ -1,10 +1,8 @@
-
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import MainLayout from "@/components/layout/MainLayout";
 import { SettingsProvider } from "@/context/SettingsContext";
-
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,22 +24,18 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const surahs = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/surahs`).then(
-    (res) => res.json(),
-  );
- 
+  const surahs = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/surahs`, {
+    next: { revalidate: 3600 },
+  }).then((res) => res.json());
+
   return (
-    
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="fixed top-0 w-full bg-[var(---bg-main)] antialiased">
         <SettingsProvider>
-         
-          <MainLayout surahs={surahs}>
-            {children}
-          </MainLayout>
+          <MainLayout surahs={surahs}>{children}</MainLayout>
         </SettingsProvider>
       </body>
     </html>
