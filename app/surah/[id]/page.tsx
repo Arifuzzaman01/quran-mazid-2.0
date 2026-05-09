@@ -21,7 +21,7 @@ export default async function SurahDetail({
     return null;
   }
   const surah = await res.json();
-  // console.log("Fetched Surah Data:", process.env.NEXT_PUBLIC_API_URL, surah);
+  console.log("Fetched Surah Data:", process.env.NEXT_PUBLIC_API_URL);
 
   return (
     <div className="flex h-full  bg-[var(--bg-main)]">

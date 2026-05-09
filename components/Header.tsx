@@ -4,7 +4,7 @@ import Link from "next/link";
 import React from "react";
 import Search from "./Search";
 import SettingsSidebar from "./SettingsSidebar";
-import SurahSidebar from "./SurahSidebar";
+
 import { useSettings } from "@/context/SettingsContext";
 
 const Header = ({ onOpenMenu }: { onOpenMenu: () => void }) => {
@@ -18,7 +18,7 @@ const Header = ({ onOpenMenu }: { onOpenMenu: () => void }) => {
   const { theme, setSettings } = useSettings();
 
   return (
-    <div className="sticky top-0 flex items-center justify-between px-4 py-0 bg-[var(---bg-main)] border-b border-[#1f1f1f] w-full z-50">
+    <div className="sticky top-0 flex items-center justify-between px-4 py-0 bg-[var(--bg-main)] border-b border-[#1f1f1f] w-full z-50">
       <button
         onClick={onOpenMenu}
         className="lg:hidden p-2 text-primary hover:bg-primary/10 rounded-lg"
