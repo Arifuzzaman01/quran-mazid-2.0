@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 interface SearchProps {
-  onLocalFilter?: (query: string) => void; // সূরার নাম ফিল্টার করার জন্য
+  onLocalFilter?: (query: string) => void; 
 }
 
 const Search = ({ onLocalFilter }: SearchProps) => {
@@ -13,14 +13,13 @@ const Search = ({ onLocalFilter }: SearchProps) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  // ১. আয়াত সার্চ লজিক (Debounced Search)
   useEffect(() => {
     const delayDebounceFn = setTimeout(async () => {
       if (query.length > 2) {
         setLoading(true);
         try {
-          // আপনার সার্ভার এপিআই কল
-          const res = await fetch(`http://localhost:3001/api/search?q=${query}`);
+         
+          const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/search?q=${query}`);
           const data = await res.json();
           setResults(data.results || []);
         } catch (err) {
@@ -31,20 +30,20 @@ const Search = ({ onLocalFilter }: SearchProps) => {
       } else {
         setResults([]);
       }
-    }, 500); // ৫০০ms পর সার্চ হবে যাতে পারফরম্যান্স ভালো থাকে
+    }, 500); 
 
     return () => clearTimeout(delayDebounceFn);
   }, [query]);
 
-  // ২. ইনপুট হ্যান্ডেলার
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
     setQuery(val);
-    if (onLocalFilter) onLocalFilter(val); // সাইডবারের সূরা ফিল্টার হবে
+    if (onLocalFilter) onLocalFilter(val); 
   };
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-fit ">
       <div className="relative group">
         <SearchIcon 
           className={`absolute left-4 top-1/2 -translate-y-1/2 transition-colors ${

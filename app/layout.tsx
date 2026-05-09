@@ -29,15 +29,17 @@ export default async function RootLayout({
   const surahs = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/surahs`).then(
     (res) => res.json(),
   );
-  // console.log(surahs[0]);
+  // console.log(process.env.NEXT_PUBLIC_API_URL, "API URL");
   return (
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body >
+      <body className="fixed top-0 w-full" >
         <SettingsProvider>
-          <Header />
+         <header>
+           <Header />
+         </header>
           <div className="flex h-screen  text-white overflow-hidden">
             {/* 1. Left Icon Sidebar (Fixed) */}
             <aside>

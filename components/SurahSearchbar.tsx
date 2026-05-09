@@ -12,7 +12,7 @@ const SurahSearchbar = ({ onSearch }: SearchProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
     setQuery(val);
-    onSearch(val); // এটি সরাসরি সাইডবারের লিস্টকে ফিল্টার করবে
+    onSearch(val); 
   };
 
   const clearSearch = () => {
