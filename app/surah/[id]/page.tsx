@@ -14,7 +14,9 @@ export default async function SurahDetail({
   const surahId = id || "1"
   // console.log("Fetching data for Surah ID:", surahId);
  
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/surah/${surahId}`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/surah/${surahId}`,{
+    next: { revalidate: 3600 } 
+  });
   const surah = await res.json();
   // console.log("Fetched Surah Data:", process.env.NEXT_PUBLIC_API_URL, surah);
 

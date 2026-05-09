@@ -40,7 +40,7 @@ const Header = ({ onOpenMenu }: { onOpenMenu: () => void }) => {
       <div className="flex items-center justify-end gap-0.5 sm:gap-2 flex-1">
         {openSearch && (
           <>
-          <div className="absolute  right-4 top-full mt-2 w-full sm:w-auto p-4 bg-[#121212] border border-[#1f1f1f] rounded-2xl shadow-2xl z-[100] sm:hidden">
+          <div className="absolute  -right-1/5 top-full mt-2 w-full sm:w-auto  rounded-2xl shadow-2xl z-[100] sm:hidden">
             <Search />
           </div>
           <div className="hidden sm:inline">
